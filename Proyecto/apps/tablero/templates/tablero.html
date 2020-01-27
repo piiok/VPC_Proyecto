@@ -1,0 +1,53 @@
+  
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title> Tablero </title>
+        <link rel="stylesheet" href="{% static 'css/tablero.css'%}">
+    </head>
+    <body>
+
+        <!--
+        .##.....##.####.########..########..#######....
+        .##.....##..##..##.....##.##.......##.....##...
+        .##.....##..##..##.....##.##.......##.....##...
+        .##.....##..##..##.....##.######...##.....##...
+        ..##...##...##..##.....##.##.......##.....##...
+        ...##.##....##..##.....##.##.......##.....##...
+        ....###....####.########..########..#######....
+        -->
+        <!-- Stream video via webcam -->
+        <div class="video-wrap">
+            <video id="video" playsinline autoplay></video>
+        </div>
+
+        <!-- Trigger canvas web API -->
+        <div class="controller">
+            <button id="snap">Capture</button>
+        </div>
+
+        <!-- Webcam video snapshot -->
+        <canvas id="canvas" width="640" height="480"></canvas>
+
+
+        
+        <!--
+        .########....###....########..##.......########.########...#######.
+        ....##......##.##...##.....##.##.......##.......##.....##.##.....##
+        ....##.....##...##..##.....##.##.......##.......##.....##.##.....##
+        ....##....##.....##.########..##.......######...########..##.....##
+        ....##....#########.##.....##.##.......##.......##...##...##.....##
+        ....##....##.....##.##.....##.##.......##.......##....##..##.....##
+        ....##....##.....##.########..########.########.##.....##..#######.
+        -->
+        <canvas id="pizarra"></canvas>
+
+
+        <script src="{% static 'js/jquery.min.js'%}"></script>
+        <script src="{% static 'js/tablero.js'%}"></script>
+    </body>
+</html>

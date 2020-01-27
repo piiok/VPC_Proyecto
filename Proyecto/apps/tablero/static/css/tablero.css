@@ -1,0 +1,38 @@
+body{
+    background-color: black;
+}
+
+#snap{
+    position: fixed;
+    bottom: 0;
+    right: 0;
+}
+
+#canvas{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    height: 300px;
+}
+
+canvas#pizarra {
+    position:fixed ;
+    z-index: 100;
+    bottom: 22px;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: transparent;
+}  
+
+video#video{
+    position: fixed;
+    z-index: 5;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    -webkit-transform: scaleX(-1);
+    -moz-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    transform: scaleX(-1);
+}
