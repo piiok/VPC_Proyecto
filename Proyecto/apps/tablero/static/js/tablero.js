@@ -1,3 +1,74 @@
+/*
+.########.##....##.##.....##.####..#######.
+.##.......###...##.##.....##..##..##.....##
+.##.......####..##.##.....##..##..##.....##
+.######...##.##.##.##.....##..##..##.....##
+.##.......##..####..##...##...##..##.....##
+.##.......##...###...##.##....##..##.....##
+.########.##....##....###....####..#######.
+*/
+//=====================================================
+// BUCLE DE TRANSMISION
+//=====================================================
+//aps = actualizaciones por segundo, suele ser 60 veces por segundo
+//fps = frames por segundo, suele ser 60 veces por segundo
+var transmision = {
+    idEjecucion: null,
+    ultimoRegistro: 0,
+    aps:0,
+    fps: 0,
+    iterar: function(registroTemporal){
+
+              
+
+              var context = canvas.getContext('2d');
+              context.drawImage(video, 0, 0, 640, 480);
+              var imgData2 = context.getImageData(0, 0, 100, 100);
+              var data2=imgData2.data;
+              var data = [];
+              var count = 0;
+              for(var i = 0; i < data2.length; i += 4) {
+                var grayscale= 0.33*data2[i]+0.52*data2[i+1]+0.15*data2[i+2];
+                data[count] = grayscale;
+                count++;
+              }
+              // console.log(data);
+
+              transmision.idEjecucion = window.requestAnimationFrame(transmision.iterar);
+              
+              transmision.actualizar(registroTemporal);
+              transmision.dibujar();
+
+              if( (registroTemporal - transmision.ultimoRegistro) > 999 ){
+                transmision.ultimoRegistro = registroTemporal;
+                console.log("APS: "+transmision.aps + " | FPS: " + transmision.fps);
+                transmision.aps = 0;
+                transmision.fps = 0;
+              } else {
+                
+              }
+            },
+    detener:  function(){
+
+              },
+    actualizar: function(registroTemporal){
+                  transmision.aps++;
+                },
+    dibujar:  function(registroTemporal){
+                transmision.fps++;
+              },
+}
+
+function iniciarTransmision(){
+  console.log("Transmision iniciada");
+  transmision.iterar(0);
+}
+
+
+
+
+
+
 
 /*
 .########....###....########..##.......########.########...#######.
@@ -136,10 +207,11 @@ const constraints = {
 };
 
 // Access webcam
-async function init() {
+async function init(callback) {
   try {
     const stream = await navigator.mediaDevices.getUserMedia(constraints);
     handleSuccess(stream);
+    callback();
   } catch (e) {
     errorMsgElement.innerHTML = `navigator.getUserMedia error:${e.toString()}`;
   }
@@ -152,12 +224,23 @@ function handleSuccess(stream) {
 }
 
 // Load init
-init();
+init(()=>iniciarTransmision());
 
 // Draw image
 snap.addEventListener("click", function() {
   var context = canvas.getContext('2d');
   context.drawImage(video, 0, 0, 640, 480);
-  var imageData = context.getImageData(0, 0, 100, 100);
-  console.log(imageData);
+  var imgData2 = context.getImageData(0, 0, 100, 100);
+  var data2=imgData2.data;
+  var data = [];
+  var count = 0;
+  for(var i = 0; i < data2.length; i += 4) {
+    var grayscale= 0.33*data2[i]+0.52*data2[i+1]+0.15*data2[i+2];
+    data[count] = grayscale;
+    count++;
+  }
+  console.log(data);
 });
+
+
+
