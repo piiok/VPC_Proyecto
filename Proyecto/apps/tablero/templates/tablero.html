@@ -31,7 +31,7 @@
         </div>
 
         <!-- Webcam video snapshot -->
-        <canvas id="canvas" width="640" height="480"></canvas>
+        <canvas id="canvas" width="640" height="480" style="display: none;"></canvas>
 
 
         
@@ -44,8 +44,14 @@
         ....##....##.....##.##.....##.##.......##.......##....##..##.....##
         ....##....##.....##.########..########.########.##.....##..#######.
         -->
+        <div id="csrf">
+            {% csrf_token %}
+        </div>
         <canvas id="pizarra"></canvas>
-
+        <script>
+            const csrf_value = document.getElementById("csrf").children[0].value ;
+            const csrf_name = document.getElementById("csrf").children[0].name ;
+        </script>
 
         <script src="{% static 'js/jquery.min.js'%}"></script>
         <script src="{% static 'js/tablero.js'%}"></script>
