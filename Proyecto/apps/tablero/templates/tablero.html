@@ -22,7 +22,7 @@
         -->
         <!-- Stream video via webcam -->
         <div class="video-wrap">
-            <video id="video" playsinline autoplay></video>
+            <video id="video" autoplay></video>
         </div>
 
         <!-- Trigger canvas web API -->
@@ -31,7 +31,7 @@
         </div>
 
         <!-- Webcam video snapshot -->
-        <canvas id="canvas" width="640" height="480" style="display: none;"></canvas>
+        <canvas id="canvas" width="100" height="100"></canvas>
 
 
         
@@ -44,14 +44,7 @@
         ....##....##.....##.##.....##.##.......##.......##....##..##.....##
         ....##....##.....##.########..########.########.##.....##..#######.
         -->
-        <div id="csrf">
-            {% csrf_token %}
-        </div>
-        <canvas id="pizarra"></canvas>
-        <script>
-            const csrf_value = document.getElementById("csrf").children[0].value ;
-            const csrf_name = document.getElementById("csrf").children[0].name ;
-        </script>
+        <!-- <canvas id="pizarra"></canvas> -->
 
         <script src="{% static 'js/jquery.min.js'%}"></script>
         <script src="{% static 'js/tablero.js'%}"></script>
