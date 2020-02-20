@@ -143,7 +143,7 @@ var transmision = {
 
 			var form = new FormData();
 
-			form.append('csrfmiddlewaretoken', CSRF_TOKEN);
+			// form.append('csrfmiddlewaretoken', CSRF_TOKEN);
 			form.append('imgJSON', img.src);
 			form.append('iteracion', transmision.nroIteracion);
 
@@ -169,31 +169,6 @@ var transmision = {
 	},
 }
 
-/*
-.########..#######..##....##.########.##....##
-....##....##.....##.##...##..##.......###...##
-....##....##.....##.##..##...##.......####..##
-....##....##.....##.#####....######...##.##.##
-....##....##.....##.##..##...##.......##..####
-....##....##.....##.##...##..##.......##...###
-....##.....#######..##....##.########.##....##
-*/
-const CSRF_TOKEN = getCookie('csrftoken');
-function getCookie(name) {
-	var cookieValue = null;
-	if (document.cookie && document.cookie != '') {
-		var cookies = document.cookie.split(';');
-		for (var i = 0; i < cookies.length; i++) {
-			var cookie = cookies[i].trim();
-			// Does this cookie string begin with the name we want?
-			if (cookie.substring(0, name.length + 1) == (name + '=')) {
-				cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-				break;
-			}
-		}
-	}
-	return cookieValue;
-}
 function isJSON(str) {
 	/* if connect.responseText is an error-code number... */
 	if (parseInt(str)) return false;
@@ -205,5 +180,5 @@ function isJSON(str) {
 	}
   
 	return true;
-  }
+}
   

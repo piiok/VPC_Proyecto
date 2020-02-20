@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.views.decorators.csrf import csrf_exempt
 # from .models import Video
 
 import json
@@ -19,6 +20,8 @@ def index2(request):
     # return HttpResponse("<h1>Hola pvto mundo</h1>")
     return render(request,"tablero2.html")
 
+
+@csrf_exempt
 def post(request):
     # video = Video(request.POST)
     imgj = request.POST.get('imgJSON')
