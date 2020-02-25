@@ -96,6 +96,7 @@ function captureSnapshot() {
 var transmision = {
 	idEjecucion: null,
 	imgPromedio: null,
+	fondo: null,
 	nroIteracion: 0,
 	ultimoRegistro: 0,
 	aps: 0,
@@ -137,15 +138,15 @@ var transmision = {
 			snapshot.innerHTML = '';
 
 			snapshot.appendChild(img);
-			console.log("Imagen");
-			console.log(img);
 
 
 			var form = new FormData();
-
-			// form.append('csrfmiddlewaretoken', CSRF_TOKEN);
-			form.append('imgJSON', img.src);
+						
+			form.append('img', img.src);
 			form.append('iteracion', transmision.nroIteracion);
+			if(transmision.fondo !=  null){
+				form.append('fondo', transmision.fondo);
+			}
 
 			fetch("/sendCap", {
 				method: 'POST',
@@ -157,6 +158,7 @@ var transmision = {
 				.catch((error) => (console.error(error.message)))
 				.then(function (res) {
 					if (isJSON(res)) {
+						transmision.fondo = JSON.parse(res)['img']
 						transmision.iterar(registroTemporal);
 						console.log("ES json");
 					} else {

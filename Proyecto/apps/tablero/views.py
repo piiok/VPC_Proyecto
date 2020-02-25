@@ -1,14 +1,10 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
-# from .models import Video
+from .models import Video
 
 import json
-import base64
-import cv2 as cv
 import io
-import matplotlib.pyplot as plt
-import numpy as np
 
 # Create your views here.
 def index(request):
@@ -23,13 +19,5 @@ def index2(request):
 
 @csrf_exempt
 def post(request):
-    # video = Video(request.POST)
-    imgj = request.POST.get('imgJSON')
-    # imgjson = json.loads(imgj)
-    imgj = imgj.split(',')[1]
-    nparr = np.fromstring(base64.b64decode(imgj), np.uint8)
-    im = cv.imdecode(nparr, cv.IMREAD_ANYCOLOR)
-
-    cv.imwrite('respuesta.jpg',im)
-    print(type(imgj))
-    return HttpResponse("holi"+imgj,content_type='application/json')
+    video = Video(request.POST)    
+    return HttpResponse(json.dumps({'img':video.CVImgToBase64(video.fondo)}),content_type='application/json')
