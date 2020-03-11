@@ -20,6 +20,8 @@ def index2(request):
 @csrf_exempt
 def post(request):
     video = Video(request.POST) 
+    # predicciones = video.prediccion()
     predicciones = video.prediccionBoW()
-    print('prediccion',predicciones[0])
+    print('prediccion',predicciones)
+    # return HttpResponse(json.dumps({'Prediccion':video.classes_name[str(np.argmax( predicciones[0]))]}),content_type='application/json')
     return HttpResponse(json.dumps({'Prediccion':video.classes_name[str(predicciones[0])]}),content_type='application/json')

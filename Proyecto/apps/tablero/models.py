@@ -33,31 +33,37 @@ class Video():
             '4':'Cara',
             '5':'Nada',
     }
+
+    #cnn
+    # classes_name = {
+    #         '0':'Tres',
+    #         '1':'Puño', 
+    #         '2':'Palma', 
+    #         '3':'Cara',
+    #         '5':'Nada',
+    # }
     # filename = "./apps/tablero/CNN_proyecto_100x100x1_Single_NineOneSix_96_81"
+    # filename = "./apps/tablero/CNN_proyecto_100x100x1_3_A_B_faces_93_85"
 
-
-    ''' SVM BUENO 91 EN TRAIN 77  , EN TEST '''
+    ''' SVM BUENO 91 EN TRAIN , 77 EN TEST '''
     # filename = "./apps/tablero/BoW_SVM_5.sav" #{'3': 1, 'A': 2, 'B': 3, 'faces': 4}
     # filename_words = "./apps/tablero/BoW_SVM_Words_5.sav"
+
+    ''' SVM BUENO 96 EN TRAIN 85  , EN TEST '''
+    filename = "./apps/tablero/BoW_SVM_6.sav" #{'3': 1, 'A': 2, 'B': 3, 'faces': 4}
+    filename_words = "./apps/tablero/BoW_SVM_Words_6.sav"
+
 
     ''' NAIVE GAUSSIAN   90 TRAIN  ,  85 TEST '''
     # filename = "./apps/tablero/BoW_NG_1.sav" #{'3': 1, 'A': 2, 'B': 3, 'faces': 4}
     # filename_words = "./apps/tablero/BoW_NG_Words_1.sav"
 
+    ''' NAIVE GAUSSIAN   92 TRAIN  ,  85 TEST '''
+    # filename = "./apps/tablero/BoW_NG_3.sav" #{'3': 1, 'A': 2, 'B': 3, 'faces': 4}
+    # filename_words = "./apps/tablero/BoW_NG_Words_3.sav"
 
-    ''' KNN NO FUNCIONA NO SE POR QUÉ '''
-    # ''' KNN   88 TRAIN  ,  78 TEST '''
-    # # filename = "./apps/tablero/BoW_KNN_1.sav" #{'3': 1, 'A': 2, 'B': 3, 'faces': 4}
-    # # filename_words = "./apps/tablero/BoW_KNN_1.sav"
-    # ''' KNN   88 TRAIN  ,  78 TEST '''
-    # filename = "./apps/tablero/BoW_KNN_2.sav" #{'3': 1, 'A': 2, 'B': 3, 'faces': 4}
-    # filename_words = "./apps/tablero/BoW_KNN_2.sav"
 
-    ''' SVM BUENO 96 EN TRAIN 85  , EN TEST '''
-    # filename = "./apps/tablero/BoW_SVM_6.sav" #{'3': 1, 'A': 2, 'B': 3, 'faces': 4}
-    # filename_words = "./apps/tablero/BoW_SVM_Words_6.sav"
-
-    # NG_2 90_71_
+    
 
 
     # filename = "./apps/tablero/BoW_XGB_1.sav" #{'3': 1, 'A': 2, 'B': 3, 'faces': 4}
@@ -89,12 +95,8 @@ class Video():
         return
 
     def prediccion(self):
-        img_resize = cv.resize( cv.cvtColor(self.img, cv.COLOR_BGR2RGB) , (100,100))
-        # img_resize = cv.resize(self.img , (100,100))
-        gray = cv.cvtColor(img_resize,cv.COLOR_BGR2GRAY)
-        ret, thresh = cv.threshold(gray,0,255,cv.THRESH_BINARY_INV+cv.THRESH_OTSU)
-        cv.imwrite('img.jpg',thresh)
-        img_expand = np.reshape(thresh , (-1,100,100,1))
+        img_resize = cv.resize( cv.cvtColor(self.img, cv.COLOR_BGR2GRAY) , (100,100))
+        img_expand = np.reshape(img_resize , (-1,100,100,1))
         print("---------------",str(np.shape(img_expand)))
         predicciones = self.red_neural.predict(img_expand)[0]
         print("Predicciones")
