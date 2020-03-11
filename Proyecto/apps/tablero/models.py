@@ -57,6 +57,8 @@ class Video():
     # filename = "./apps/tablero/BoW_SVM_6.sav" #{'3': 1, 'A': 2, 'B': 3, 'faces': 4}
     # filename_words = "./apps/tablero/BoW_SVM_Words_6.sav"
 
+    # NG_2 90_71_
+
 
     # filename = "./apps/tablero/BoW_XGB_1.sav" #{'3': 1, 'A': 2, 'B': 3, 'faces': 4}
     # filename_words = "./apps/tablero/BoW_XGB_Words_1.sav"

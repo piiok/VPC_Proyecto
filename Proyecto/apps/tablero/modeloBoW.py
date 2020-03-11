@@ -15,17 +15,17 @@ from sklearn.externals import joblib
 #CLASIFICADORES
 #from sklearn.svm import SVC
 #from xgboost import XGBClassifier
-#from sklearn.naive_bayes import GaussianNB
+from sklearn.naive_bayes import GaussianNB
 #from sklearn.ensemble import RandomForestClassifier
 #from sklearn.metrics import confusion_matrix
-from sklearn.neighbors import KNeighborsClassifier
+#from sklearn.neighbors import KNeighborsClassifier
 from sklearn.metrics import f1_score, accuracy_score
 
 print("-----------------------------------------------------")
 print("                   LEYENDO CLASES")
 print("-----------------------------------------------------")
 
-path_classes = '../../../../dataset_jhoan/'
+path_classes = '../../../../dataset_jhoan_sin_brazo/'
 #classes_names = os.listdir(path_classes)
 # classes_names = classes_names[0:4]
 classes_names = ['3','A','B','faces']
@@ -58,7 +58,7 @@ print (array_imgs_test[0])
 print("-----------------------------------------------------")
 print("          LEYENDO IMGs Y EXTRAYENDO ORB")
 print("-----------------------------------------------------")
-descriptor_extractor = ORB(n_keypoints=200)
+descriptor_extractor = ORB(n_keypoints=150)
 array_ORB = list();
 
 for img_path in  array_imgs_train:
@@ -130,8 +130,8 @@ print("-----------------------------------------------------")
 print("                ENTRENANDO EL MODELO")
 print("-----------------------------------------------------")
 #SV_est = SVC(kernel='rbf')
-#SV_est = GaussianNB()
-SV_est = KNeighborsClassifier(n_neighbors=3)
+SV_est = GaussianNB()
+#SV_est = KNeighborsClassifier(n_neighbors=3)
 #SV_est = XGBClassifier()
 
 # With Support vector Machine
@@ -148,9 +148,9 @@ print("f1 score en prueba: ", f1_score(Y_test, y_pred_test, average='weighted'))
 print("Accuracy score en entrenamiento: ",accuracy_score(Y_train, y_pred_train))
 print("Accuracy score en prueba: ",accuracy_score(Y_test, y_pred_test))
 
-filename = "BoW_KNN_3.sav"
+filename = "BoW_NG_3.sav"
 joblib.dump(SV_est, filename)
-filename = "BoW_KNN_Words_3.sav"
+filename = "BoW_NG_Words_3.sav"
 joblib.dump(km, filename)
 print(filename)
 print("Modelo Guardado")
