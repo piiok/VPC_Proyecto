@@ -13,7 +13,8 @@ print("-----------------------------------------------------")
 path_classes = '../../../../EgoGesture_JPG/'
 path_classes_reshape = '../../../../160x120x3EgoGesture_JPG/'
 #classes_names = os.listdir(path_classes)
-classes_names = ['SingleNine','SingleSix','SingleOne']
+# classes_names = ['SingleNine','SingleSix','SingleOne']
+classes_names = ['faces']
 print(classes_names)
 array_imgs = []
 

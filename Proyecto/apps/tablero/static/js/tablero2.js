@@ -159,8 +159,11 @@ var transmision = {
 				.then(function (res) {
 					if (isJSON(res)) {
 						transmision.fondo = JSON.parse(res)['img']
+						var prediccion = JSON.parse(res)['Prediccion']
+						
 						transmision.iterar(registroTemporal);
-						console.log("ES json");
+						console.log("Eso es: "+prediccion);
+						// console.log("ES json");
 					} else {
 						console.log("NO es json");
 					}

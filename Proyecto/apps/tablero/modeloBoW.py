@@ -7,28 +7,28 @@ from ipywidgets import interact, interactive, fixed, interact_manual
 import ipywidgets as widgets
 from skimage import io
 import random
-
 from skimage.color import rgb2gray
 from skimage.feature import (match_descriptors, corner_harris,
                              corner_peaks, ORB, plot_matches)
 from sklearn.externals import joblib
 
 #CLASIFICADORES
-from sklearn.svm import SVC
+#from sklearn.svm import SVC
+#from xgboost import XGBClassifier
 #from sklearn.naive_bayes import GaussianNB
 #from sklearn.ensemble import RandomForestClassifier
 #from sklearn.metrics import confusion_matrix
-#from sklearn.neighbors import KNeighborsClassifier
+from sklearn.neighbors import KNeighborsClassifier
 from sklearn.metrics import f1_score, accuracy_score
 
 print("-----------------------------------------------------")
 print("                   LEYENDO CLASES")
 print("-----------------------------------------------------")
 
-path_classes = '../../../../160x120x3EgoGesture_JPG/'
-# classes_names = os.listdir(path_classes)
+path_classes = '../../../../dataset_jhoan/'
+#classes_names = os.listdir(path_classes)
 # classes_names = classes_names[0:4]
-classes_names = ['SingleNine','SingleSix','SingleOne']
+classes_names = ['3','A','B','faces']
 print(classes_names)
 array_imgs = []
 
@@ -81,6 +81,8 @@ v_words = 70
 
 km = KMeans(n_clusters = v_words, random_state=0).fit(array_ORB_2)
 
+print(type(km))
+
 def build_histogram(descriptor_list, cluster_alg):
     histogram = np.zeros(len(cluster_alg.cluster_centers_))
     cluster_result =  cluster_alg.predict(descriptor_list)
@@ -127,7 +129,11 @@ print (X_train.shape, Y_train.shape, X_test.shape, Y_test.shape)
 print("-----------------------------------------------------")
 print("                ENTRENANDO EL MODELO")
 print("-----------------------------------------------------")
-SV_est = SVC(kernel='rbf')
+#SV_est = SVC(kernel='rbf')
+#SV_est = GaussianNB()
+SV_est = KNeighborsClassifier(n_neighbors=3)
+#SV_est = XGBClassifier()
+
 # With Support vector Machine
 
 SV_est.fit(X_train, Y_train)
@@ -142,7 +148,10 @@ print("f1 score en prueba: ", f1_score(Y_test, y_pred_test, average='weighted'))
 print("Accuracy score en entrenamiento: ",accuracy_score(Y_train, y_pred_train))
 print("Accuracy score en prueba: ",accuracy_score(Y_test, y_pred_test))
 
-filename = "BoW_SVM.sav"
+filename = "BoW_KNN_3.sav"
 joblib.dump(SV_est, filename)
+filename = "BoW_KNN_Words_3.sav"
+joblib.dump(km, filename)
+print(filename)
 print("Modelo Guardado")
 
