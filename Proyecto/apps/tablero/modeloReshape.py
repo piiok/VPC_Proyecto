@@ -10,11 +10,11 @@ print("-----------------------------------------------------")
 print("                   LEYENDO CLASES")
 print("-----------------------------------------------------")
 
-path_classes = '../../../../EgoGesture_JPG/'
-path_classes_reshape = '../../../../160x120x3EgoGesture_JPG/'
+path_classes = '../../../../nuevas/'
+path_classes_reshape = '../../../../nuevas_224x224x3/'
 #classes_names = os.listdir(path_classes)
 # classes_names = ['SingleNine','SingleSix','SingleOne']
-classes_names = ['faces']
+classes_names = ['A','3','B']
 print(classes_names)
 array_imgs = []
 
@@ -35,7 +35,7 @@ for img_path in array_imgs:
   print(img_path)
   filename = path_classes_reshape + img_path
   img =cv.imread(path_classes+img_path)
-  holi = cv.resize(img,(160,120))
-  cv.imwrite(filename, holi) 
+  holi = cv.resize(img,(224,224))
+  cv.imwrite(filename, holi)
 
   

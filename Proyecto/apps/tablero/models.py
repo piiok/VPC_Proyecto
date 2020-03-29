@@ -1,25 +1,31 @@
 # from django.db import models
 import cv2 as cv
-import numpy as np
+
+
 import json
 import base64
-from keras.models import model_from_json
-import tensorflow as tf
-import keras
+# import os
+# os.environ["KERAS_BACKEND"] = "tensorflow"
 
+# from keras.models import model_from_json
+import tensorflow as tf
+# import keras
+from tensorflow.python.keras.backend import set_session
+# import pandas as pd
+# import matplotlib.pyplot as plt
+# from keras.utils.np_utils import to_categorical
+# from sklearn.externals import joblib
+# from sklearn.svm import SVC
+# from xgboost import XGBClassifier
+# from sklearn.neighbors import KNeighborsClassifier
+# from skimage.feature import (match_descriptors, corner_harris,
+#                              corner_peaks, ORB, plot_matches)
+# from sklearn.cluster import KMeans
 import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
-from keras.utils.np_utils import to_categorical
-from sklearn.externals import joblib
-from sklearn.svm import SVC
-from xgboost import XGBClassifier
-from sklearn.neighbors import KNeighborsClassifier
-from skimage.feature import (match_descriptors, corner_harris,
-                             corner_peaks, ORB, plot_matches)
-from sklearn.cluster import KMeans
 
 class Video():
+    
+
     img = []
     fondo = [] 
     iteracion = 0 #t
@@ -35,23 +41,29 @@ class Video():
     }
 
     #cnn
-    # classes_name = {
-    #         '0':'Tres',
-    #         '1':'Puño', 
-    #         '2':'Palma', 
-    #         '3':'Cara',
-    #         '5':'Nada',
-    # }
+    classes_name = {
+            '0':'Tres',
+            '1':'Puño', 
+            '2':'Palma', 
+            '3':'Cara',
+            # '5':'Nada',
+    }
     # filename = "./apps/tablero/CNN_proyecto_100x100x1_Single_NineOneSix_96_81"
-    # filename = "./apps/tablero/CNN_proyecto_100x100x1_3_A_B_faces_93_85"
+    
+    ''' TRANSFER LEARNING'''
+    filename = "./apps/tablero/vgg16_99_100_nuevo" #Modelo de Jhoan
+    # filename = "./apps/tablero/ResNet50_3_A_B_faces_100_85" #Modelo de Paola
+    # filename = "./apps/tablero/ResNet50_3_A_B_faces_theanos" #Modelo de Paola pero theanos
+    
+
 
     ''' SVM BUENO 91 EN TRAIN , 77 EN TEST '''
     # filename = "./apps/tablero/BoW_SVM_5.sav" #{'3': 1, 'A': 2, 'B': 3, 'faces': 4}
     # filename_words = "./apps/tablero/BoW_SVM_Words_5.sav"
 
     ''' SVM BUENO 96 EN TRAIN 85  , EN TEST '''
-    filename = "./apps/tablero/BoW_SVM_6.sav" #{'3': 1, 'A': 2, 'B': 3, 'faces': 4}
-    filename_words = "./apps/tablero/BoW_SVM_Words_6.sav"
+    # filename = "./apps/tablero/BoW_SVM_6.sav" #{'3': 1, 'A': 2, 'B': 3, 'faces': 4}
+    # filename_words = "./apps/tablero/BoW_SVM_Words_6.sav"
 
 
     ''' NAIVE GAUSSIAN   90 TRAIN  ,  85 TEST '''
@@ -76,28 +88,44 @@ class Video():
     # filename = "./apps/tablero/BoW_SVM_100x100x1_Single_NineOneSix_63.sav" //No sirve porque no guarde las palabras
 
 
-    def __init__(self,post):
+    def __init__(self):
+        
+        
+        # self.red_neural = self.leerCNN(self.filename)
+        # self.graph = tf.compat.v1.get_default_graph()
+        # self.Bow = self.leerModelo(self.filename)
+        # self.words = self.leerModelo(self.filename_words)
+
+        return
+
+    def newRequest(self,post):
         self.img = self.Base64ToCVImg(post.get('img'))
+        self.iteracion = int(post.get('iteracion'))
         # cv.imwrite('img.jpg',self.img)
 
         # self.fondo = self.Base64ToCVImg(post.get('img')) if (post.get('fondo') == None) else self.Base64ToCVImg(post.get('fondo'))
 
-        self.iteracion = int(post.get('iteracion'))
-
         # self.actFondo()
         # cv.imwrite('fondo.jpg',self.fondo)
 
-        # self.red_neural = self.leerCNN(self.filename)
-
-        self.Bow = self.leerModelo(self.filename)
-        self.words = self.leerModelo(self.filename_words)
-
         return
 
-    def prediccion(self):
-        img_resize = cv.resize( cv.cvtColor(self.img, cv.COLOR_BGR2GRAY) , (100,100))
-        img_expand = np.reshape(img_resize , (-1,100,100,1))
+    # def prediccion(self,graph,sess,modelo):
+    def prediccion(self,modelo):
+        self.red_neural = modelo
+        print(self.red_neural.summary())
+        img_resize = cv.resize( cv.cvtColor(self.img, cv.COLOR_BGR2RGB) , (224,224))
+        img_expand = np.reshape(img_resize , (-1,224,224,3))
         print("---------------",str(np.shape(img_expand)))
+        # with graph.as_default():
+        #     set_session(sess)
+            # predicciones = self.red_neural.predict(img_expand)
+            # print("Predicciones")
+            # print(predicciones)
+            # print("SingleOne",predicciones[0])
+            # print("SingleNine",predicciones[1])
+            # print("SingleSix",predicciones[2])
+            # return predicciones
         predicciones = self.red_neural.predict(img_expand)[0]
         print("Predicciones")
         print(predicciones)
