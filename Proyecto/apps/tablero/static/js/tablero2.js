@@ -110,7 +110,7 @@ var transmision = {
 
 		if ((registroTemporal - transmision.ultimoRegistro) > 999) {
 			transmision.ultimoRegistro = registroTemporal;
-			// console.log("APS: " + transmision.aps + " | FPS: " + transmision.fps);
+			console.log("APS: " + transmision.aps + " | FPS: " + transmision.fps);
 			transmision.aps = 0;
 			transmision.fps = 0;
 		}

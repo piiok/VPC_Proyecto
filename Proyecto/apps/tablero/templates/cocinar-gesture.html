@@ -1,0 +1,18 @@
+{% load static %}
+<head>
+    <link rel="stylesheet" href="{% static 'css/gestureApi.css'%}">
+    <script src="{% static 'js/jquery.min.js'%}"></script>
+
+</head>
+
+<body>
+
+    <video id="video" src="{% static 'videos/video1.mp4'%}" width="500"></video>
+    <script src="{% static 'js/gestureApi.js'%}"></script>
+    
+    <script>
+        
+        gestureControl= { 'Tres': ()=>($(video).trigger('play')), 'Palma': ()=>($(video).trigger('pause')) ,};
+        
+    </script>
+</body>

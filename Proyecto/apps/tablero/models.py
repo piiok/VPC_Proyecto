@@ -113,25 +113,14 @@ class Video():
     # def prediccion(self,graph,sess,modelo):
     def prediccion(self,modelo):
         self.red_neural = modelo
-        print(self.red_neural.summary())
         img_resize = cv.resize( cv.cvtColor(self.img, cv.COLOR_BGR2RGB) , (224,224))
         img_expand = np.reshape(img_resize , (-1,224,224,3))
-        print("---------------",str(np.shape(img_expand)))
-        # with graph.as_default():
-        #     set_session(sess)
-            # predicciones = self.red_neural.predict(img_expand)
-            # print("Predicciones")
-            # print(predicciones)
-            # print("SingleOne",predicciones[0])
-            # print("SingleNine",predicciones[1])
-            # print("SingleSix",predicciones[2])
-            # return predicciones
         predicciones = self.red_neural.predict(img_expand)[0]
-        print("Predicciones")
-        print(predicciones)
-        print("SingleOne",predicciones[0])
-        print("SingleNine",predicciones[1])
-        print("SingleSix",predicciones[2])
+        print("Predicciones",predicciones)
+        print("Tres  ",predicciones[0])
+        print("Puño  ",predicciones[1])
+        print("Palma ",predicciones[2])
+        print("Cara  ",predicciones[3])
         return predicciones
 
     def prediccionBoW(self):

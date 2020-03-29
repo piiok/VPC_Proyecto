@@ -1,10 +1,11 @@
 <!-- Source code from http://apps.thecodepost.org/trex/trex.html -->
-
+{% load static %}
 <head>
+    <link rel="stylesheet" href="{% static 'css/gestureApi.css'%}">
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <script>
         
-
+        var game = null;
         function hideClass(name) {
             for (var elem of $(name)) elem.style.display = "none";
         }
@@ -12,7 +13,7 @@
             var IS_HIDPI = false, IS_IOS = false, IS_MOBILE = false, IS_TOUCH_ENABLED = false;
         function Runner(outerContainerId) {
                 Runner.instance_ = this;
-            var outerContainerEl = document.querySelector(outerContainerId);
+                var outerContainerEl = document.querySelector(outerContainerId);
                 this.outerContainerEl = outerContainerEl
                 this.containerEl = null;
                 this.detailsButton = outerContainerEl.querySelector("#details-button");
@@ -44,7 +45,7 @@
             };
             Runner.config = {
                 ACCELERATION: 0.001,
-                BG_CLOUD_SPEED: 0.2,
+                BG_CLOUD_SPEED: 0.05,
                 BOTTOM_PAD: 10,
                 CLEAR_TIME: 3000,
                 CLOUD_FREQUENCY: 0.5,
@@ -54,12 +55,12 @@
                 INITIAL_JUMP_VELOCITY: 12,
                 MAX_CLOUDS: 6,
                 MAX_OBSTACLE_LENGTH: 3,
-                MAX_SPEED: 12,
-                MIN_JUMP_HEIGHT: 35,
+                MAX_SPEED: 5,
+                MIN_JUMP_HEIGHT: 45,
                 MOBILE_SPEED_COEFFICIENT: 1.2,
                 RESOURCE_TEMPLATE_ID: "audio-resources",
-                SPEED: 6,
-                SPEED_DROP_COEFFICIENT: 3
+                SPEED: 2,
+                SPEED_DROP_COEFFICIENT: 5
             };
             Runner.defaultDimensions = {
                 WIDTH: DEFAULT_WIDTH,
@@ -453,27 +454,27 @@
                     }
                 },
                 onKeyDown: function(e) {
-                    if (e.target != this.detailsButton) {
+                    if (e =="Tres" || e.target != Runner.instance_.detailsButton ) {
                         if (
-                            !this.crashed &&
-                            (Runner.keycodes.JUMP[String(e.keyCode)] ||
+                            !Runner.instance_.crashed &&
+                            (e =="Tres" || Runner.keycodes.JUMP[String(e.keyCode)] ||
                                 e.type == Runner.events.TOUCHSTART)
                         ) {
-                            if (!this.activated) {
-                                this.loadSounds();
-                                this.activated = true;
+                            if (!Runner.instance_.activated) {
+                                Runner.instance_.loadSounds();
+                                Runner.instance_.activated = true;
                             }
-                            if (!this.tRex.jumping) {
-                                this.playSound(this.soundFx.BUTTON_PRESS);
-                                this.tRex.startJump();
+                            if (!Runner.instance_.tRex.jumping) {
+                                Runner.instance_.playSound(Runner.instance_.soundFx.BUTTON_PRESS);
+                                Runner.instance_.tRex.startJump();
                             }
                         }
                         if (
-                            this.crashed &&
+                            Runner.instance_.crashed &&
                             e.type == Runner.events.TOUCHSTART &&
-                            e.currentTarget == this.containerEl
+                            e.currentTarget == Runner.instance_.containerEl
                         ) {
-                            this.restart();
+                            Runner.instance_.restart();
                         }
                     }
                     // Speed drop, activated only when jump key is not pressed.
@@ -624,6 +625,7 @@
                 canvas.width = width;
                 canvas.height = height;
                 container.appendChild(canvas);
+                game = canvas;
                 return canvas;
             }
             function decodeBase64ToArrayBuffer(base64String) {
@@ -2241,8 +2243,9 @@
   </div>
 
   <script type="text/javascript">
+    var game = null;
     if (navigator.userAgent.toLowerCase().indexOf('chrome') > -1) {
-      new Runner('.interstitial-wrapper');
+        game = new Runner('.interstitial-wrapper');
     } else {
       document.getElementById("main-frame-notchrome").style.display="";
 	}
@@ -2253,5 +2256,12 @@
 	  hideClass(".onlyforchrome");
 	}
   </script>
+
+    <script src="{% static 'js/gestureApi.js'%}"></script>
+    <script>
+        
+        gestureControl= { 'Tres': game.onKeyDown };
+        
+    </script>
     </div>
 </body>

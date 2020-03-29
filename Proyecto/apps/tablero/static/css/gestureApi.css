@@ -1,0 +1,13 @@
+div.play-area{
+    position: fixed;
+    right: 0;
+    bottom: 0;
+}
+
+.play-area *{
+    display: inline-block;
+}
+
+.play-area .d-none{
+    display: none;
+}

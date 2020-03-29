@@ -12,8 +12,8 @@ import tensorflow as tf
 from tensorflow.python.keras.backend import set_session
 from tensorflow.python.keras.models import load_model
 
-modelo = tf.keras.models.load_model("./apps/tablero/ResNet50_3_A_B_faces_tensorFlow.h5")
-print(modelo.summary())
+modelo = tf.keras.models.load_model("./apps/tablero/vgg16_99_100_tensorFlow.h5")
+# print(modelo.summary())
 
 # sess = tf.Session()
 # graph = tf.get_default_graph()
@@ -30,6 +30,12 @@ def index2(request):
 def rexChrome(request):
     return render(request,"rex-chrome.html")
 
+def rexChromeGesture(request):
+    return render(request,"rex-chrome-gesture.html")
+
+def cocinaGesture(request):
+    return render(request,"cocinar-gesture2.html")
+
 @csrf_exempt
 def post(request):
     video = Video() 
@@ -37,5 +43,5 @@ def post(request):
     # predicciones = video.prediccion(graph,sess,modelo)
     predicciones = video.prediccion(modelo)
 
-    print('prediccion',predicciones)
+    # print('prediccion',predicciones)
     return HttpResponse(json.dumps({'Prediccion':video.classes_name[str(np.argmax( predicciones))]}),content_type='application/json')
