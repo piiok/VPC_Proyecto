@@ -12,7 +12,10 @@ import tensorflow as tf
 from tensorflow.python.keras.backend import set_session
 from tensorflow.python.keras.models import load_model
 
-modelo = tf.keras.models.load_model("./apps/tablero/vgg16_99_100_tensorFlow.h5")
+path = "./apps/tablero/vgg16_99_100_tensorFlow.h5"
+# path = "./apps/tablero/InceptionV3_3_A_B_faces_100_x.h5"
+
+modelo = tf.keras.models.load_model(path)
 # print(modelo.summary())
 
 # sess = tf.Session()
