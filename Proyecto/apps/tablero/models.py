@@ -113,6 +113,9 @@ class Video():
     # def prediccion(self,graph,sess,modelo):
     def prediccion(self,modelo):
         self.red_neural = modelo
+        # img_resize = cv.resize( cv.cvtColor(self.img, cv.COLOR_BGR2RGB) , (299,299))
+        # img_expand = np.reshape(img_resize , (-1,299,299,3))
+
         img_resize = cv.resize( cv.cvtColor(self.img, cv.COLOR_BGR2RGB) , (224,224))
         img_expand = np.reshape(img_resize , (-1,224,224,3))
         predicciones = self.red_neural.predict(img_expand)[0]
