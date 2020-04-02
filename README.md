@@ -40,7 +40,8 @@ La implementacion de la api es muy sencilla, y el ejemplo mas facil es el de coc
 
 ```
 En el ejemplo anterior se hace uso de jQuery, pero para implementación de la api no se requiere.
-
+# Video 
+<video src="https://gitlab.com/paolacaicedouis/hands_words-proyecto_vpc/-/row/master/hands_world-video.mp4">
 # Dependencias
 El principal es Python y use la v3.7.5, y el intalador esta en [./instaladores/python-3.7.5-amd64.exe](https://github.com/piiok/VPC_Proyecto/blob/master/instaladores/python-3.7.5-amd64.exe).
 No recuerdo exactamente todo lo que instale pero con el comando <i>python -m pip freeze</i>, sale todo esto...  <br>
