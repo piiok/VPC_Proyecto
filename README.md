@@ -9,16 +9,16 @@ Presentaciones del proyecto: [Click aquí](https://gitlab.com/paolacaicedouis/ha
 # Historia
 
 ## Primera fase
-Este proyecto exploro muchos ambitos, en un inicio se exploraron clasificadores como KNN, SVM, XGB  haciendo un preprosesamiento de Bag Of Word (Dio resultados medianamente buenos pero cuando la imagen no tenía muchas "orillas", este generaba un error, ademas las prediciones resultaban un poco caoticas), se exploró keras con background en tensorflow 1.x lo cual funcionaba bien para redes pequeñas. Estos modelos recien mencionados se encuentran ubicados en la carpeta ./Proyecto/apps/tablero/ModelosAnteriores. [Click aquí](https://github.com/piiok/VPC_Proyecto/tree/master/Proyecto/apps/tablero/ModelosAnteriores)
+Este proyecto exploro muchos ámbitos, en un inicio se exploraron clasificadores como KNN, SVM, XGB haciendo un preprocesamiento de Bag Of Word (Dio resultados medianamente buenos pero cuando la imagen no tenía muchas "orillas", este generaba un error, además las predicciones resultaban un poco caóticas), se exploró keras con background en tensorflow 1.x lo cual funcionaba bien para redes pequeñas. Estos modelos recién mencionados se encuentran ubicados en la carpeta ./Proyecto/apps/tablero/ModelosAnteriores. [Click aquí](https://github.com/piiok/VPC_Proyecto/tree/master/Proyecto/apps/tablero/ModelosAnteriores)
 
 ## Segunda fase
-Para la segunda fase se exploraró transferncia de aprendizaje (Transfer Learning) con las redes Densenet201, ResNet50, VGG16 e InceptionV3 pero se presentaron problemas ya que en un inicio por cada peticion el servidor recargaba el modelo en la RAM y en modelos grandes esto hacia que el tiempo de respuesta fuera de aprox. 2min, demasiado para implementacion en Gesture Control. Muchos de estos modelos quizas no puedan ser subidos debido a que el peso de estos excede los 100MB.
+Para la segunda fase se exploró transferencia de aprendizaje (Transfer Learning) con las redes Densenet201, ResNet50, VGG16 e InceptionV3 pero se presentaron problemas, ya que en un inicio por cada petición el servidor recargaba el modelo en la RAM y en modelos grandes esto hacia que el tiempo de respuesta fuera de aprox. 2min, demasiado para implementación en Gesture Control. Muchos de estos modelos quizás no puedan ser subidos debido a que el peso de estos excede los 100MB.
 
-Se cambio la arquitectura de trabajo un poco pero se encontraron dificultades con keras, he investigando en internet encontramos que estos problemas se resolvian cambiandonos de backend a theano por esta razon destro del proyecto se pueden encontrar modelos con un subfijo '_theano'. Pero el entrenamiento de este tipo de modelos era muy tardío, y cuando se implemento el problema persistió. 
+Se cambió la arquitectura de trabajo un poco pero se encontraron dificultades con keras, e investigando en internet encontramos que estos problemas se resolvían cambiandonos de backend a theano por esta razón dentro del proyecto se pueden encontrar modelos con un sufijo '_theano'. Pero el entrenamiento de este tipo de modelos era muy tardío, y cuando se implementó el problema persistió. 
 
-Mudamos todos los modelos anteriormente realizados a tensorFlow Keras, tensprflow==2.1.0., y con este redujimos el tiempo de respuesta de 2min aproximadamente a 500ms. Algo ya aplicable al problema de gesture control o reconocimineto de gestos en "tiempo real". El modelo que nos ofrecio mejor consistencia en las predicciones fue la VGG16 y en base este se contruyo una <i>mini API</i> en JavaScript que solo requiere un diccionario con la funcion que debe realizar según el gesto que detecte. De esto se realizaron 2 ejemplos. Uno con el juego de rex-chrome, al cual se puede acceder desde la ruta <b> http://127.0.0.1:8000/rex-chrome-gesture </b> y un pequeña plantilla con un video que se pausa y se reproduce segun sea el gesto al cual se puede acceder desde la ruta <b> http://127.0.0.1:8000/cocina-gesture </b>.
+Mudamos todos los modelos anteriormente realizados a tensorFlow Keras, tensprflow==2.1.0., y con este redujimos el tiempo de respuesta de 2min aproximadamente a 500ms. Algo ya aplicable al problema de gesture control o reconocimiento de gestos en "tiempo real". El modelo que nos ofreció mejor consistencia en las predicciones fue la VGG16 y en base este se construyó una <i>mini API</i> en JavaScript que solo requiere un diccionario con la función que debe realizar según el gesto que detecte. De esto se realizaron 2 ejemplos. Uno con el juego de rex-chrome, al cual se puede acceder desde la ruta <b> http://127.0.0.1:8000/rex-chrome-gesture </b> y un pequeña plantilla con un video que se pausa y se reproduce según sea el gesto al cual se puede acceder desde la ruta <b> http://127.0.0.1:8000/cocina-gesture </b>.
 
-# Implementacion de la API
+# Implementación de la API
 La implementacion de la api es muy sencilla, y el ejemplo mas facil es el de cocina-gesture, el cual solo requirió el siquiente codigo:
 
 ```
@@ -39,11 +39,12 @@ La implementacion de la api es muy sencilla, y el ejemplo mas facil es el de coc
 </script>
 
 ```
-En el ejemplo anterior se hace uso de jQuery, pero para implementacion de la api no se requiere.
+En el ejemplo anterior se hace uso de jQuery, pero para implementación de la api no se requiere.
 
 # Dependencias
 El principal es Python y use la v3.7.5, y el intalador esta en [./instaladores/python-3.7.5-amd64.exe](https://github.com/piiok/VPC_Proyecto/blob/master/instaladores/python-3.7.5-amd64.exe).
-No recuerdo exactamente todo lo que instale pero con el comando python -m pip freeze, sale todo esto... tratare de poner enn negrita todo lo que realmente es necesario. Algunos se requieren o no segun el modelo que se utilice, pero teniendo en cuenta que el modelo definitivo que funciono fue la VGG16 con tf.keras pues solo se requieren los que señalare con <b>Negrita</b>.
+No recuerdo exactamente todo lo que instale pero con el comando <i>python -m pip freeze</i>, sale todo esto...  <br>
+Algunos se requieren o no según el modelo que se utilice, pero teniendo en cuenta que el modelo definitivo que funciono fue la VGG16 con tf.keras pues solo se requieren los que señalare con <b>Negrita</b>.
 
 - <b>Django==3.0.2</b>
 - <b>numpy==1.18.0</b>
