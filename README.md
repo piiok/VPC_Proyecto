@@ -6,7 +6,7 @@ Integrantes: Paola Andrea Caicedo Gualdrón, Jhoan Manuel Diaz Higuera, Juan Fel
 
 Presentaciones del proyecto: [Click aquí](https://gitlab.com/paolacaicedouis/hands_words-proyecto_vpc)
 
-# Historia
+# Desarrollo
 
 ## Primera fase
 Este proyecto exploro muchos ámbitos, en un inicio se exploraron clasificadores como KNN, SVM, XGB haciendo un preprocesamiento de Bag Of Word (Dio resultados medianamente buenos pero cuando la imagen no tenía muchas "orillas", este generaba un error, además las predicciones resultaban un poco caóticas), se exploró keras con background en tensorflow 1.x lo cual funcionaba bien para redes pequeñas. Estos modelos recién mencionados se encuentran ubicados en la carpeta ./Proyecto/apps/tablero/ModelosAnteriores. [Click aquí](https://github.com/piiok/VPC_Proyecto/tree/master/Proyecto/apps/tablero/ModelosAnteriores)
@@ -44,7 +44,7 @@ En el ejemplo anterior se hace uso de jQuery, pero para implementación de la ap
 # Dependencias
 El principal es Python y use la v3.7.5, y el intalador esta en [./instaladores/python-3.7.5-amd64.exe](https://github.com/piiok/VPC_Proyecto/blob/master/instaladores/python-3.7.5-amd64.exe).
 No recuerdo exactamente todo lo que instale pero con el comando <i>python -m pip freeze</i>, sale todo esto...  <br>
-Algunos se requieren o no según el modelo que se utilice, pero teniendo en cuenta que el modelo definitivo que funciono fue la VGG16 con tf.keras pues solo se requieren los que señalare con <b>Negrita</b>.
+Algunos se requieren o no según el modelo que se utilice, pero teniendo en cuenta que el modelo definitivo que funciono fue la VGG16 con tf.keras pues solo se requieren los que señalare con <b>Negrita</b>. Se debe tener en cuenta que algunos paquetes son dependencias de otros.
 
 - <b>Django==3.0.2</b>
 - <b>numpy==1.18.0</b>
