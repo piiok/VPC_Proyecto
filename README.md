@@ -4,6 +4,8 @@ El proyecto tiene como fin identificar gestos realizados con la mano en tiempo r
 
 Integrantes: Paola Andrea Caicedo Gualdrón, Jhoan Manuel Diaz Higuera, Juan Felipe Peña Herrera.
 
+**Video demostrativo: [Click aquí](https://drive.google.com/file/d/1CKxhb7wpT0lF6KZW7AitIbAJn0wwwYEZ/view?usp=sharing)**
+
 Presentaciones del proyecto: [Click aquí](https://gitlab.com/paolacaicedouis/hands_words-proyecto_vpc)
 
 # Desarrollo
